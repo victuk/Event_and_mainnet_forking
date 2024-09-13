@@ -2,9 +2,9 @@ import { ethers } from "hardhat";
 const helpers = require("@nomicfoundation/hardhat-network-helpers");
 
 async function main() {
-    const ROUTER_ADDRESS = "";
-    const USDC = "";
-    const USDT = "";
+    const ROUTER_ADDRESS = "0x97b3818902fBf430e1f7dC265F9F18aBCdb15442";
+    const USDC = "0x6033F7f88332B8db6ad452B7C6D5bB643990aE3f";
+    const USDT = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 
     const TOKEN_HOLDER = "";
 

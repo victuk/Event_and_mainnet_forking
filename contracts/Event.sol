@@ -6,6 +6,9 @@ import "./ERC271.sol";
 import "hardhat/console.sol";
 
 contract EventContract {
+
+    MyToken mtk = new MyToken();
+
     uint256 eventID;
 
     enum EventStatus {
@@ -24,7 +27,7 @@ contract EventContract {
         string name;
         string venue;
         string dateAndTime;
-        string nftUrl;
+        address nftUrl;
         address eventCreator;
         EventStatus eventStatus;
         UserDetails[] eventAtendees;
@@ -39,7 +42,7 @@ contract EventContract {
     // user address -> event ID -> nft ID
     mapping (address => mapping(uint => string)) attendees;
 
-    function createEvent(string memory _name, string memory _venue, string memory _dateAndTime, string memory _nftUrl) external {
+    function createEvent(string memory _name, string memory _venue, string memory _dateAndTime, address _nftUrl) external {
         eventID += 1;
 
     Event storage newEvent = events[eventID];
@@ -59,6 +62,7 @@ contract EventContract {
 
     function registerForAnEvent(string memory _name, uint256 _eventID, string memory _nftUrl) external {
         require(events[eventID].eventStatus == EventStatus.pending || events[eventID].eventStatus == EventStatus.ongoing, "You can't register for this event anymore.");
+        // require(mtk(events[eventID].nftUrl).balanceOf(msg.sender) > 0, "No nft found");
 
         events[_eventID].eventAtendees.push(UserDetails({
             name: _name,

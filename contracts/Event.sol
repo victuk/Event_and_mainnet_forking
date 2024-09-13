@@ -42,7 +42,7 @@ contract EventContract {
     event NewAttendee(uint eventId, address attendee);
 
     // user address -> event ID -> nft ID
-    mapping(address => mapping(uint => string)) attendees;
+    mapping(address => mapping(uint => bool)) attendees;
 
     function createEvent(
         string memory _name,
@@ -81,7 +81,7 @@ contract EventContract {
             UserDetails({name: _name, userAddress: msg.sender})
         );
 
-        attendees[msg.sender][_eventID] = _nftUrl;
+        attendees[msg.sender][_eventID] = true;
 
         emit NewAttendee(_eventID, msg.sender);
     }
@@ -94,7 +94,6 @@ contract EventContract {
             msg.sender == events[_eventID].eventCreator,
             "Only owner can take this action"
         );
-
         events[_eventID].eventStatus = _eventStatus;
     }
 
@@ -104,14 +103,15 @@ contract EventContract {
         return events[_eventID];
     }
 
-    function myEventTicket(uint256 _eventID) external view returns (bool) {
-        Event storage e = events[_eventID];
-        bool inEvent;
-        for (uint256 i = 0; i < e.eventAtendees.length; i++) {
-            if (e.eventAtendees[i].userAddress == msg.sender) {
-                inEvent = true;
-            }
-        }
-        return inEvent;
+    function registeredForEvent(uint256 _eventID) external view returns (bool) {
+        // Event storage e = events[_eventID];
+        // bool inEvent;
+        // for (uint256 i = 0; i < e.eventAtendees.length; i++) {
+        //     if (e.eventAtendees[i].userAddress == msg.sender) {
+        //         inEvent = true;
+        //     }
+        // }
+        // return inEvent;
+        return attendees[msg.sender][_eventID];
     }
 }

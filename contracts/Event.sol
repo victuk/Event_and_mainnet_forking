@@ -87,5 +87,15 @@ contract EventContract {
         return events[_eventID];
     }
 
+    function myEventTicket(uint256 _eventID) external view returns (bool) {
+        Event storage e = events[_eventID];
+        bool inEvent;
+        for(uint256 i = 0; i < e.eventAtendees.length; i++) {
+            if(e.eventAtendees[i].urlAddress == msg.sender) {
+                inEvent = true;
+            }
+        }
+        return inEvent;
+    }
     
 }

@@ -25,7 +25,7 @@ async function main() {
     const daiBal = await DAI_Contract.balanceOf(impersonatedSigner.address);
     const deadline = Math.floor(Date.now() / 1000) + (60 * 10);
 
-    console.log("usdc balance before swap", Number(usdcBal));
+    console.log("USDC balance before swap", Number(usdcBal));
     console.log("USDT balance before swap", Number(daiBal));
 
     await ROUTER.swapTokensForExactTokens(

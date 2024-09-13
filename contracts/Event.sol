@@ -68,8 +68,7 @@ contract EventContract {
         string memory _nftUrl
     ) external {
         require(
-            events[eventID].eventStatus == EventStatus.pending ||
-                events[eventID].eventStatus == EventStatus.ongoing,
+            events[eventID].eventStatus == EventStatus.pending || events[eventID].eventStatus == EventStatus.ongoing,
             "You can't register for this event anymore."
         );
         // require(mtk(events[eventID].nftUrl).balanceOf(msg.sender) > 0, "No nft found");

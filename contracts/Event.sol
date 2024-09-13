@@ -6,7 +6,7 @@ import "./ERC271.sol";
 import "hardhat/console.sol";
 
 contract EventContract {
-    MyToken mtk = new MyToken();
+    MyToken public mtk;
 
     uint256 eventID;
 
@@ -33,6 +33,10 @@ contract EventContract {
     }
 
     mapping(uint => Event) events;
+
+    constructor (MyToken _mtk) {
+        mtk = _mtk;
+    }
 
     event EventCreated(uint eventId, address creator, string eventName);
     event NewAttendee(uint eventId, address attendee);
@@ -71,7 +75,7 @@ contract EventContract {
             events[eventID].eventStatus == EventStatus.pending || events[eventID].eventStatus == EventStatus.ongoing,
             "This event has been either completed or cancelled"
         );
-        // require(mtk(events[eventID].nftUrl).balanceOf(msg.sender) > 0, "No nft found");
+        require(mtk.balanceOf(msg.sender) > 0, "No nft found");
 
         events[_eventID].eventAtendees.push(
             UserDetails({name: _name, userAddress: msg.sender})

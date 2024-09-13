@@ -75,7 +75,7 @@ contract EventContract {
             events[eventID].eventStatus == EventStatus.pending || events[eventID].eventStatus == EventStatus.ongoing,
             "This event has been either completed or cancelled"
         );
-        require(mtk.balanceOf(msg.sender) > 0, "No nft found");
+        require(mtk.balanceOf(msg.sender) > 0, "User does not own an NFT.");
 
         events[_eventID].eventAtendees.push(
             UserDetails({name: _name, userAddress: msg.sender})

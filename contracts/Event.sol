@@ -19,7 +19,7 @@ contract EventContract {
 
     struct UserDetails {
         string name;
-        address urlAddress;
+        address userAddress;
     }
 
     struct Event {
@@ -75,7 +75,7 @@ contract EventContract {
         // require(mtk(events[eventID].nftUrl).balanceOf(msg.sender) > 0, "No nft found");
 
         events[_eventID].eventAtendees.push(
-            UserDetails({name: _name, urlAddress: msg.sender})
+            UserDetails({name: _name, userAddress: msg.sender})
         );
 
         attendees[msg.sender][_eventID] = _nftUrl;
@@ -105,7 +105,7 @@ contract EventContract {
         Event storage e = events[_eventID];
         bool inEvent;
         for (uint256 i = 0; i < e.eventAtendees.length; i++) {
-            if (e.eventAtendees[i].urlAddress == msg.sender) {
+            if (e.eventAtendees[i].userAddress == msg.sender) {
                 inEvent = true;
             }
         }
